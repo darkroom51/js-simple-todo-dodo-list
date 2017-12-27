@@ -1,0 +1,201 @@
+div, header, section, footer, input, button, ul, li {box-sizing: border-box; margin:0; padding:0;}
+
+body{
+    background-color: grey;
+    font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
+    line-height: 1.6;
+    font-weight: 400;
+    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #222;
+}
+
+.wrap{
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: silver;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(44, 62, 80, 0.15);
+    margin-bottom: 15px;
+}
+
+/*@media (min-width: 678px) {
+    .wrap{
+        width: 100%;
+    }
+    header{
+        left:0;
+    }
+}*/
+
+
+header{
+    width: 100%;
+    max-width: 970px;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+header .dodo-logo{
+    height:40px;
+    background: #9ec5da;
+    text-align: center;
+    color:#fff;
+}
+
+header .dodo-input{
+    height:80px;
+    padding:15px;
+    background: #9ec5da;
+    box-shadow: 0px 2px 4px rgba(44, 62, 80, 0.15);
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+header .dodo-input input {
+    width: 100%;
+    height: 50px;
+    float: left;
+    color: #fff;
+    font-size: 0.8em;
+    font-weight: 400;
+    text-indent: 18px;
+    padding: 0 80px 0 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    border: 0px;
+    box-shadow: none;
+    outline: none;
+}
+
+
+header .dodo-input button {
+    width: 70px;
+    height: 50px;
+    position:absolute;
+    top:55px;
+    right:15px;
+    border-radius: 0px 10px 10px 0px;
+    background: #fff;
+    border: 0px;
+    box-shadow: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+section {
+    width: 100%;
+    padding: 15px;
+}
+
+ul.dodo-todo {
+    width: 100%;
+    list-style: none;
+    float: left;
+    margin-top:120px;
+}
+
+ul.dodo-todo li {
+    position: relative;
+    width: 100%;
+    min-height: 50px;
+    float: left;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 1px 2px rgba(44, 62, 80, 0.10);
+    margin: 0 0 10px 0;
+    padding: 14px;
+}
+
+ul.dodo-todo li:last-of-type {
+    margin: 0;
+}
+
+ul.dodo-todo li .text{
+    float:left;
+    font-size: 0.6em;
+    color: #444;
+    line-height: 22px;
+    padding: 0 60px 0 60px;
+
+}
+
+ul.dodo-todo li .button-done{
+    position:absolute;
+    width: 50px;
+    height:50px;
+    top:0;
+    left:0;
+    background: lawngreen;
+}
+
+ul.dodo-todo li .button-delete{
+    position:absolute;
+    width: 50px;
+    height:50px;
+    top:0;
+    right: 0;
+    background: firebrick;
+}
+
+ul.dodo-todo li .button-done button{
+    width:30px;
+    height:30px;
+    border-radius: 10px;
+    margin: 10px 0 0 10px;
+    background-color: white;
+}
+ul.dodo-todo li .button-delete button{
+    width:30px;
+    height:30px;
+    border-radius: 10px;
+    margin: 10px 0 0 10px;
+    background-color: white;
+}
+
+
+
+
+
+
+
+
+
+footer {
+    font-size:0.5em;
+    text-align: center;
+}
+
+
+/*----------------------------------------------------*/
+
+section:after,
+ul:after,
+li:after,
+.button-delete:after,
+.button-done:after,
+.text:after,
+.wld_clear:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+header .dodo-input input::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+header .dodo-input input::-moz-input-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+header .dodo-input input::-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
