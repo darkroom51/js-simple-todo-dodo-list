@@ -6,9 +6,7 @@ body{
     font-weight: 400;
     font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #222;
-    background: #2193b0;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   background: silver;
 
 }
 
@@ -54,19 +52,15 @@ header .dodo-logo{
     transform: translateX(-50%);
     z-index: 11;
     height:55px;
+}
 
-}
-header .dodo-logo img{
-    width:auto;
-    height:100%;
-    /*filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));*/
-}
 header .dodo-logo h3{
     margin:0;
-    padding:0;
+    padding:0 0px 0 0px;
     color:#fff;
-    font-weight: 300;
-    font-size: 1.5em;
+    font-weight: 400;
+    font-size: 1.6em;
+    font-family: 'Indie Flower', cursive;
 }
 
 header .dodo-input{
@@ -79,7 +73,6 @@ header .dodo-input{
     background: #fd746c;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #ff9068, #fd746c);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #ff9068, #fd746c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 }
 
 header .dodo-input input {
@@ -207,7 +200,7 @@ ul.dodo-todo li .button-done button{
 }
 ul.dodo-todo li .button-done button:hover{
     color:#fff;
-    background:#2ecc71;
+    background:#a8e063;
 }
 
 ul.dodo-todo li .button-undone button{
@@ -244,7 +237,7 @@ ul.dodo-todo li .button-delete button{
 }
 ul.dodo-todo li .button-delete button:hover{
     color:#fff;
-    background:#e74c3c;
+    background:#fd746c;
 }
 
 
@@ -270,11 +263,11 @@ li:after,
 }
 
 header .dodo-input input::-webkit-input-placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
 }
 header .dodo-input input::-moz-input-placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
 }
 header .dodo-input input::-ms-input-placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
 }
