@@ -1,4 +1,7 @@
+/* First version of script. Procedural programming. Clean, easy to understand, simply great! :) */
+
 fetchToDos();
+
 
 if (localStorage.getItem('autoIncId') === null) {
     localStorage.setItem('autoIncId', 1);
@@ -6,7 +9,6 @@ if (localStorage.getItem('autoIncId') === null) {
 if (localStorage.getItem('toDos') === '[]') {
     localStorage.setItem('autoIncId', 1);
 }
-
 
 
 document.getElementById('addButton').addEventListener('click', function () {
