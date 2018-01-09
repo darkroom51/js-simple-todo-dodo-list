@@ -1,8 +1,8 @@
-function ToDoItem() {
+function ToDoDodo() {
     // empty
 }
 
-ToDoItem.prototype.init = function () {
+ToDoDodo.prototype.init = function () {
     var self = this;
     document.getElementById('addButton').addEventListener('click', function () {
         var value = document.getElementById('addInput').value;
@@ -22,10 +22,10 @@ ToDoItem.prototype.init = function () {
             localStorage.setItem('autoIncId', id);
         }
     });
-    this.renderToDo();
+    this.renderToDoDodo();
 };
 
-ToDoItem.prototype.renderToDo = function () {
+ToDoDodo.prototype.renderToDoDodo = function () {
     if (localStorage.getItem('toDos') !== null) {
         var toDos = JSON.parse(localStorage.getItem('toDos'));
         var toDoList = document.getElementById('listTodo');
@@ -33,61 +33,78 @@ ToDoItem.prototype.renderToDo = function () {
         toDoList.innerHTML = '';
         doneList.innerHTML = '';
         for (var i = toDos.length - 1; i >= 0; i--) {
-            if (!toDos[i].done) {
-                toDoList.innerHTML += '<li id="li' + toDos[i].id + '">' +
-                    '<div class="button-done"></div>' +
-                    '<div class="text">' + toDos[i].text + '</div>' +
-                    '<div class="button-delete"></div>' +
-                    '</li>';
-
-                var self = this; // inner this ;)
-                var innerId = toDos[i].id; // inner id ;)
-                var btnDoneContainer = document.querySelector('#li'+ toDos[i].id + ' .button-done');
-                var btnDone = document.createElement('button');
-                btnDone.innerHTML = '<i class="fa fa-check-circle-o" aria-hidden="true"></i>';
-                btnDone.addEventListener('click', function () {
-                    self.doneToDo(innerId);
-                });
-                btnDoneContainer.appendChild(btnDone);
-
-                var btnDeleteContainer = document.querySelector('#li'+ toDos[i].id + ' .button-delete');
-                var btnDelete = document.createElement('button');
-                btnDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
-                btnDelete.addEventListener('click', function () {
-                    self.deleteToDo(innerId);
-                });
-                btnDeleteContainer.appendChild(btnDelete);
-            }
-            else {
-                doneList.innerHTML += '<li id="li' + toDos[i].id + '">' +
-                    '<div class="button-undone"></div>' +
-                    '<div class="text-done">' + toDos[i].text + '</div>' +
-                    '<div class="button-delete"></div>' +
-                    '</li>';
-
-                var self = this; // inner this ;)
-                var innerId = toDos[i].id; // inner id ;)
-                var btnUnDoneContainer = document.querySelector('#li'+ toDos[i].id + ' .button-undone');
-                var btnUnDone = document.createElement('button');
-                btnUnDone.innerHTML = '<i class="fa fa-check-circle" aria-hidden="true"></i>';
-                btnUnDone.addEventListener('click', function () {
-                    self.undoneToDo(innerId);
-                });
-                btnUnDoneContainer.appendChild(btnUnDone);
-
-                var btnDeleteContainer = document.querySelector('#li'+ toDos[i].id + ' .button-delete');
-                var btnDelete = document.createElement('button');
-                btnDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
-                btnDelete.addEventListener('click', function () {
-                    self.deleteToDo(innerId);
-                });
-                btnDeleteContainer.appendChild(btnDelete);
-            }
+            //var innerId = toDos[i].id; // something like inner index of array, I Don't Know why!!
+            this.renderItem(toDoList, doneList, toDos[i]);
         }// end of for
     }
 }
 
-ToDoItem.prototype.addToDo = function (value, id) {
+ToDoDodo.prototype.renderItem = function (toDoList, doneList, toDosElement) {
+    var self = this;
+    if (!toDosElement.done) {
+        // render to-do items
+        var liContainer = document.createElement('li');
+        toDoList.appendChild(liContainer);
+
+        var btnDoneContainer = document.createElement('div');
+        btnDoneContainer.classList.add('button-done');
+        liContainer.appendChild(btnDoneContainer);
+        var btnDone = document.createElement('button');
+        btnDone.innerHTML = '<i class="fa fa-check-circle-o" aria-hidden="true"></i>';
+        btnDone.addEventListener('click', function () {
+            self.doneToDo(toDosElement.id);
+        });
+        btnDoneContainer.appendChild(btnDone);
+
+        var textContainer = document.createElement('div');
+        textContainer.classList.add('text');
+        textContainer.innerText = toDosElement.text;
+        liContainer.appendChild(textContainer);
+
+        var btnDeleteContainer = document.createElement('div');
+        btnDeleteContainer.classList.add('button-delete');
+        liContainer.appendChild(btnDeleteContainer);
+        var btnDelete = document.createElement('button');
+        btnDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+        btnDelete.addEventListener('click', function () {
+            self.deleteToDo(toDosElement.id);
+            console.log(toDosElement.id);
+        });
+        btnDeleteContainer.appendChild(btnDelete);
+    }
+    else {
+        // render done items
+        var liContainer = document.createElement('li');
+        toDoList.appendChild(liContainer);
+
+        var btnUnDoneContainer = document.createElement('div');
+        btnUnDoneContainer.classList.add('button-undone');
+        liContainer.appendChild(btnUnDoneContainer);
+        var btnUnDone = document.createElement('button');
+        btnUnDone.innerHTML = '<i class="fa fa-check-circle" aria-hidden="true"></i>';
+        btnUnDone.addEventListener('click', function () {
+            self.undoneToDo(toDosElement.id);
+        });
+        btnUnDoneContainer.appendChild(btnUnDone);
+
+        var textContainer = document.createElement('div');
+        textContainer.classList.add('text-done');
+        textContainer.innerText = toDosElement.text;
+        liContainer.appendChild(textContainer);
+
+        var btnDeleteContainer = document.createElement('div');
+        btnDeleteContainer.classList.add('button-delete');
+        liContainer.appendChild(btnDeleteContainer);
+        var btnDelete = document.createElement('button');
+        btnDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+        btnDelete.addEventListener('click', function () {
+            self.deleteToDo(toDosElement.id);
+        });
+        btnDeleteContainer.appendChild(btnDelete);
+    }
+}
+
+ToDoDodo.prototype.addToDo = function (value, id) {
     var record = {
         id: id,
         text: value,
@@ -104,10 +121,10 @@ ToDoItem.prototype.addToDo = function (value, id) {
         localStorage.setItem('toDos', JSON.stringify(toDos));
     }
     document.getElementById('addInput').value = '';
-    this.renderToDo();
+    this.renderToDoDodo();
 }
 
-ToDoItem.prototype.deleteToDo = function (id) {
+ToDoDodo.prototype.deleteToDo = function (id) {
     var toDos = JSON.parse(localStorage.getItem('toDos'));
     for (var i = 0; i < toDos.length; i++) {
         if (toDos[i].id == id) {
@@ -115,10 +132,10 @@ ToDoItem.prototype.deleteToDo = function (id) {
         }
     }
     localStorage.setItem('toDos', JSON.stringify(toDos));
-    this.renderToDo();
+    this.renderToDoDodo();
 }
 
-ToDoItem.prototype.doneToDo = function (id) {
+ToDoDodo.prototype.doneToDo = function (id) {
     var toDos = JSON.parse(localStorage.getItem('toDos'));
     for (var i = 0; i < toDos.length; i++) {
         if (toDos[i].id == id) {
@@ -126,10 +143,10 @@ ToDoItem.prototype.doneToDo = function (id) {
         }
     }
     localStorage.setItem('toDos', JSON.stringify(toDos));
-    this.renderToDo();
+    this.renderToDoDodo();
 }
 
-ToDoItem.prototype.undoneToDo = function (id) {
+ToDoDodo.prototype.undoneToDo = function (id) {
     var toDos = JSON.parse(localStorage.getItem('toDos'));
     for (var i = 0; i < toDos.length; i++) {
         if (toDos[i].id == id) {
@@ -137,15 +154,14 @@ ToDoItem.prototype.undoneToDo = function (id) {
         }
     }
     localStorage.setItem('toDos', JSON.stringify(toDos));
-    this.renderToDo();
+    this.renderToDoDodo();
 }
 
 
 /*--- Run this crap ---*/
 
-var objToDoItem = new ToDoItem();
-objToDoItem.init();
-
+var objToDoDodo = new ToDoDodo();
+objToDoDodo.init();
 
 if (localStorage.getItem('autoIncId') === null) {
     localStorage.setItem('autoIncId', 1);
