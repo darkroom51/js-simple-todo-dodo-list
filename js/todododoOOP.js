@@ -1,8 +1,57 @@
-function Todo () {
+function ToDoItem() {
     // empty
 }
 
-Todo.prototype.addToDo = function (value, id) {
+ToDoItem.prototype.init = function () {
+    var self = this;
+    document.getElementById('addButton').addEventListener('click', function () {
+        var value = document.getElementById('addInput').value;
+        if (value) {
+            var id = parseInt(localStorage.getItem('autoIncId'));
+            self.addToDo(value, id);
+            id++;
+            localStorage.setItem('autoIncId', id);
+        }
+    });
+    document.getElementById('addInput').addEventListener('keydown', function (e) {
+        var value = this.value;
+        if (e.code === 'Enter' && value) {
+            var id = parseInt(localStorage.getItem('autoIncId'));
+            self.addToDo(value, id);
+            id++;
+            localStorage.setItem('autoIncId', id);
+        }
+    });
+    this.renderToDo();
+};
+
+ToDoItem.prototype.renderToDo = function () {
+    if (localStorage.getItem('toDos') !== null) {
+        var toDos = JSON.parse(localStorage.getItem('toDos'));
+        var toDoList = document.getElementById('listTodo');
+        var doneList = document.getElementById('listDone');
+        toDoList.innerHTML = '';
+        doneList.innerHTML = '';
+        for (var i = toDos.length - 1; i >= 0; i--) {
+            if (!toDos[i].done) {
+                toDoList.innerHTML += '<li id="li' + toDos[i].id + '">' +
+                    '<div class="button-done"><button onclick="objToDoItem.doneToDo(' + toDos[i].id + ')"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button></div>' +
+                    '<div class="text">' + toDos[i].text + '</div>' +
+                    '<div class="button-delete"><button onclick="objToDoItem.deleteToDo(' + toDos[i].id + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></div>' +
+                    '</li>';
+            }
+            else {
+                doneList.innerHTML += '<li id="li' + toDos[i].id + '">' +
+                    '<div class="button-undone"><button onclick="objToDoItem.undoneToDo(' + toDos[i].id + ')"><i class="fa fa-check-circle" aria-hidden="true"></i></button></div>' +
+                    '<div class="text-done">' + toDos[i].text + '</div>' +
+                    '<div class="button-delete"><button onclick="objToDoItem.deleteToDo(' + toDos[i].id + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></div>' +
+                    '</li>';
+            }
+        }// end of for
+    }
+}
+
+ToDoItem.prototype.addToDo = function (value, id) {
     var record = {
         id: id,
         text: value,
@@ -18,38 +67,11 @@ Todo.prototype.addToDo = function (value, id) {
         toDos.push(record);
         localStorage.setItem('toDos', JSON.stringify(toDos));
     }
-
     document.getElementById('addInput').value = '';
-    this.fetchToDo();
+    this.renderToDo();
 }
 
-Todo.prototype.fetchToDo = function () {
-    if (localStorage.getItem('toDos') !== null) {
-        var toDos = JSON.parse(localStorage.getItem('toDos'));
-        var toDoList = document.getElementById('listTodo');
-        var doneList = document.getElementById('listDone');
-        toDoList.innerHTML = '';
-        doneList.innerHTML = '';
-        for (var i = toDos.length-1; i >= 0 ; i--) {
-            if (!toDos[i].done) {
-                toDoList.innerHTML += '<li id="li' + toDos[i].id + '">' +
-                    '<div class="button-done"><button onclick="objToDo.doneToDo(' + toDos[i].id + ')"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button></div>' +
-                    '<div class="text">' + toDos[i].text + '</div>' +
-                    '<div class="button-delete"><button onclick="objToDo.deleteToDo(' + toDos[i].id + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></div>' +
-                    '</li>';
-            }
-            else {
-                doneList.innerHTML += '<li id="li' + toDos[i].id + '">' +
-                    '<div class="button-undone"><button onclick="objToDo.undoneToDo(' + toDos[i].id + ')"><i class="fa fa-check-circle" aria-hidden="true"></i></button></div>' +
-                    '<div class="text-done">' + toDos[i].text + '</div>' +
-                    '<div class="button-delete"><button onclick="objToDo.deleteToDo(' + toDos[i].id + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></div>' +
-                    '</li>';
-            }
-        }// end of for
-    }
-}
-
-Todo.prototype.deleteToDo = function (id) {
+ToDoItem.prototype.deleteToDo = function (id) {
     var toDos = JSON.parse(localStorage.getItem('toDos'));
     for (var i = 0; i < toDos.length; i++) {
         if (toDos[i].id == id) {
@@ -57,10 +79,10 @@ Todo.prototype.deleteToDo = function (id) {
         }
     }
     localStorage.setItem('toDos', JSON.stringify(toDos));
-    this.fetchToDo();
+    this.renderToDo();
 }
 
-Todo.prototype.doneToDo = function (id) {
+ToDoItem.prototype.doneToDo = function (id) {
     var toDos = JSON.parse(localStorage.getItem('toDos'));
     for (var i = 0; i < toDos.length; i++) {
         if (toDos[i].id == id) {
@@ -68,10 +90,10 @@ Todo.prototype.doneToDo = function (id) {
         }
     }
     localStorage.setItem('toDos', JSON.stringify(toDos));
-    this.fetchToDo();
+    this.renderToDo();
 }
 
-Todo.prototype.undoneToDo = function (id) {
+ToDoItem.prototype.undoneToDo = function (id) {
     var toDos = JSON.parse(localStorage.getItem('toDos'));
     for (var i = 0; i < toDos.length; i++) {
         if (toDos[i].id == id) {
@@ -79,16 +101,15 @@ Todo.prototype.undoneToDo = function (id) {
         }
     }
     localStorage.setItem('toDos', JSON.stringify(toDos));
-    this.fetchToDo();
+    this.renderToDo();
 }
 
 
 /*--- Run this crap ---*/
 
+var objToDoItem = new ToDoItem();
+objToDoItem.init();
 
-var objToDo = new Todo();
-
-objToDo.fetchToDo();
 
 if (localStorage.getItem('autoIncId') === null) {
     localStorage.setItem('autoIncId', 1);
@@ -97,22 +118,3 @@ if (localStorage.getItem('toDos') === '[]') {
     localStorage.setItem('autoIncId', 1);
 }
 
-document.getElementById('addButton').addEventListener('click', function () {
-    var value = document.getElementById('addInput').value;
-    if (value) {
-        var id = parseInt(localStorage.getItem('autoIncId'));
-        objToDo.addToDo(value, id);
-        id++;
-        localStorage.setItem('autoIncId', id);
-    }
-});
-
-document.getElementById('addInput').addEventListener('keydown', function (e) {
-    var value = this.value;
-    if (e.code === 'Enter' && value) {
-        var id = parseInt(localStorage.getItem('autoIncId'));
-        objToDo.addToDo(value, id);
-        id++;
-        localStorage.setItem('autoIncId', id);
-    }
-});
