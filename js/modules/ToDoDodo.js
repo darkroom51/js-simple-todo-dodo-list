@@ -108,7 +108,7 @@ var ToDoDodo = (function () {
         else {
             // render done items
             var liContainer = document.createElement('li');
-            toDoList.appendChild(liContainer);
+            doneList.appendChild(liContainer);
 
             var btnUnDoneContainer = document.createElement('div');
             btnUnDoneContainer.classList.add('button-undone');
