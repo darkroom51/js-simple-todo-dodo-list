@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>TodoDodo</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/todododo.css">
+</head>
+<body>
+
+<header>
+    <div class="dodo-logo">
+        <h3>TodoDodo</h3>
+    </div>
+    <div class="dodo-input wld_clear">
+        <input id="addInput" type="text" placeholder="Do some stuff...">
+        <button id="addButton"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+    </div>
+</header>
+
+<div class="wrap">
+    <section>
+        <ul class="dodo-todo wld_clear" id="listTodo">
+        </ul>
+        <ul class="dodo-todo wld_clear" id="listDone">
+        </ul>
+    </section>
+</div>
+
+<footer>
+    <div>copyright &copy; 2017 TodoDodo</div>
+</footer>
+
+<!-- JS -->
+<script src="todododoFUN.js"></script>
+</body>
+</html>

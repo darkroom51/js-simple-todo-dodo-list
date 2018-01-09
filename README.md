@@ -1,8 +1,8 @@
 # Simple ToDo List
 Simple web app based on clear js and localStorage. Two versions.
 
-ver.1 - simple, clean, easy to understand procedural programming
-js/old-but-gold/
+ver.1 - simple, clean, easy to understand procedural programming.
+/old-but-gold/
 
 ver.2 - Object Oriented Hell!!
 Include to your html file:
