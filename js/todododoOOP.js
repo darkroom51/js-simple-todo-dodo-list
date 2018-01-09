@@ -35,17 +35,53 @@ ToDoItem.prototype.renderToDo = function () {
         for (var i = toDos.length - 1; i >= 0; i--) {
             if (!toDos[i].done) {
                 toDoList.innerHTML += '<li id="li' + toDos[i].id + '">' +
-                    '<div class="button-done"><button onclick="objToDoItem.doneToDo(' + toDos[i].id + ')"><i class="fa fa-check-circle-o" aria-hidden="true"></i></button></div>' +
+                    '<div class="button-done"></div>' +
                     '<div class="text">' + toDos[i].text + '</div>' +
-                    '<div class="button-delete"><button onclick="objToDoItem.deleteToDo(' + toDos[i].id + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></div>' +
+                    '<div class="button-delete"></div>' +
                     '</li>';
+
+                var self = this; // inner this ;)
+                var innerId = toDos[i].id; // inner id ;)
+                var btnDoneContainer = document.querySelector('#li'+ toDos[i].id + ' .button-done');
+                var btnDone = document.createElement('button');
+                btnDone.innerHTML = '<i class="fa fa-check-circle-o" aria-hidden="true"></i>';
+                btnDone.addEventListener('click', function () {
+                    self.doneToDo(innerId);
+                });
+                btnDoneContainer.appendChild(btnDone);
+
+                var btnDeleteContainer = document.querySelector('#li'+ toDos[i].id + ' .button-delete');
+                var btnDelete = document.createElement('button');
+                btnDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+                btnDelete.addEventListener('click', function () {
+                    self.deleteToDo(innerId);
+                });
+                btnDeleteContainer.appendChild(btnDelete);
             }
             else {
                 doneList.innerHTML += '<li id="li' + toDos[i].id + '">' +
-                    '<div class="button-undone"><button onclick="objToDoItem.undoneToDo(' + toDos[i].id + ')"><i class="fa fa-check-circle" aria-hidden="true"></i></button></div>' +
+                    '<div class="button-undone"></div>' +
                     '<div class="text-done">' + toDos[i].text + '</div>' +
-                    '<div class="button-delete"><button onclick="objToDoItem.deleteToDo(' + toDos[i].id + ')"><i class="fa fa-trash" aria-hidden="true"></i></button></div>' +
+                    '<div class="button-delete"></div>' +
                     '</li>';
+
+                var self = this; // inner this ;)
+                var innerId = toDos[i].id; // inner id ;)
+                var btnUnDoneContainer = document.querySelector('#li'+ toDos[i].id + ' .button-undone');
+                var btnUnDone = document.createElement('button');
+                btnUnDone.innerHTML = '<i class="fa fa-check-circle" aria-hidden="true"></i>';
+                btnUnDone.addEventListener('click', function () {
+                    self.undoneToDo(innerId);
+                });
+                btnUnDoneContainer.appendChild(btnUnDone);
+
+                var btnDeleteContainer = document.querySelector('#li'+ toDos[i].id + ' .button-delete');
+                var btnDelete = document.createElement('button');
+                btnDelete.innerHTML = '<i class="fa fa-trash" aria-hidden="true"></i>';
+                btnDelete.addEventListener('click', function () {
+                    self.deleteToDo(innerId);
+                });
+                btnDeleteContainer.appendChild(btnDelete);
             }
         }// end of for
     }
