@@ -6,7 +6,7 @@ var ToDoDodo = (function () {
 
     /* ToDoDodo class declaration */
     function ToDoDodo(selector) {
-        this.container = this.container = document.querySelector(selector);
+        this.container = document.querySelector(selector);
 
         this.init();
     }
